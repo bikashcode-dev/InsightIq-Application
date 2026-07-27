@@ -332,10 +332,6 @@ It empowers businesses to make faster, smarter, and data-driven decisions withou
 
 ---
 
-# 👨‍💻 Author
-
 **Bikash Sah**
 
 Java Full Stack Developer | Spring Boot | Spring AI | Business Intelligence | Data Analytics | AI Applications
-
-If you found this project interesting, consider giving it a ⭐ on GitHub!
