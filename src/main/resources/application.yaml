@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: InsightIQ
+  datasource:
+    url: jdbc:mysql://localhost:3307/test
+    username: root
+    password: Bikash@977
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  servlet:
+    multipart:
+      max-file-size: 5MB
