@@ -8,6 +8,7 @@ public class InsightIqApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(InsightIqApplication.class, args);
+        System.out.println("hello ");
 	}
 
 }

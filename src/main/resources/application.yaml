@@ -2,7 +2,7 @@ spring:
   application:
     name: InsightIQ
   datasource:
-    url: jdbc:mysql://localhost:3307/test
+    url: jdbc:mysql://localhost:3306/insightiq
     username: root
     password: Bikash@977
 
