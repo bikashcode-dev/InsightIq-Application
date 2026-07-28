@@ -6,8 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/hello")
-public class ProductSales {
+@RequestMapping("/Health")
+public class HealthCheckController {
 
+    @GetMapping
+    public String HealthCheck() {
+        return "Hello World Bikash";
+    }
 
 }
