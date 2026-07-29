@@ -5,11 +5,12 @@ import com.InsightIQ.InsightIQ.commons.response.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestController
 @RequestMapping("/api/car-sales")
@@ -21,11 +22,16 @@ public class ProductSalesController {
         //Hear we chack file is available or not
         if(file.isEmpty()){
 
-            // Reposes Status
-            new ApiResponse<>  reponse = new ApiResponse<>(
+            // Respone Status
+             ApiResponse<> response = new ApiResponse<>(
                     false,
-                    "File is Empty Please Select Valid File",
+                    "The File is Empty",
                     null,
-                    HttpStatus.BAD_REQUEST.value());
+                    BAD_REQUEST.value()
+                    );
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return null;
+
     }
 }

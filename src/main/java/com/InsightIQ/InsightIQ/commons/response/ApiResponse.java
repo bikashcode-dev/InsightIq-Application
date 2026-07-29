@@ -1,7 +1,12 @@
 package com.InsightIQ.InsightIQ.commons.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class ApiResponse<T> {
 
     private final boolean success;
@@ -9,7 +14,6 @@ public class ApiResponse<T> {
     private T data;
     private int statusCode;
     private LocalDateTime timestamp;
-
 
     public ApiResponse( boolean success , String message, T data , int statusCode) {
         this.success = success;
