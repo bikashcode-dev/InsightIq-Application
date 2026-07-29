@@ -1,6 +1,4 @@
 package com.InsightIQ.InsightIQ.Controller;
-
-
 import com.InsightIQ.InsightIQ.commons.response.ApiResponse;
 import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
 import org.springframework.http.HttpStatus;
@@ -25,12 +23,15 @@ public class ProductSalesController {
 
             // Respone Status
              UploadSalesResponse response = new  UploadSalesResponse(0, 0, 0);
+
              ApiResponse<UploadSalesResponse> apiResponse = new ApiResponse<>(
                     false,
                     "The File is Empty",
                      response,
                     BAD_REQUEST.value());
-            return new ResponseEntity<>(apiResponse,HttpStatus.BAD_REQUEST);
+
+
+             return new ResponseEntity<ApiResponse<UploadSalesResponse>>(apiResponse,HttpStatus.BAD_REQUEST);
         }
         return null;
 
