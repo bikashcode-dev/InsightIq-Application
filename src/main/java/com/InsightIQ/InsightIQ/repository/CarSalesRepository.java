@@ -7,7 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CarSalesRepository extends JpaRepository<CarSaleEntity,Long>{
-
-
-
+    boolean exitsByCarNumber(String carNumber);
 }
