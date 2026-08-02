@@ -1,8 +1,8 @@
 spring:
   application:
-    name: InsightIQ
+    name: AutoSalesDealerIQAdvisor
   datasource:
-    url: jdbc:mysql://localhost:3306/insightiq
+    url: jdbc:mysql://localhost:3306/AutoSalesDealerIQAdvisor
     username: root
     password: Bikash@977
 

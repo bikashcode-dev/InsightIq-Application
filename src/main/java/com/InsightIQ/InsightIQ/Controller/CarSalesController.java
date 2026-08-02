@@ -13,7 +13,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestController
 @RequestMapping("/api/car-sales")
-public class ProductSalesController {
+public class CarSalesController {
 
     @PostMapping("/upload-csv")
     public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file) {
