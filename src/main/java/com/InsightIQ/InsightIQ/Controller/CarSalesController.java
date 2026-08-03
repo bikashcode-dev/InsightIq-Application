@@ -22,7 +22,7 @@ public class CarSalesController {
         //Hear we chack file is available or not
         if (file.isEmpty()) {
 
-            // Respone Status
+            // Response Status
             UploadSalesResponse response = new UploadSalesResponse(0, 0, 0);
 
             ApiResponse<UploadSalesResponse> apiResponse = new ApiResponse<>(

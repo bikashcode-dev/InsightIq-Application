@@ -2,11 +2,9 @@ package com.InsightIQ.InsightIQ.service;
 
 import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
 import com.InsightIQ.InsightIQ.entity.CarSaleEntity;
-import com.InsightIQ.InsightIQ.repository.CarSalesRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.hibernate.dialect.function.TimestampdiffFunction;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -17,13 +15,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarSelesServiceImp implements CarService {
+public class CarSalesRepository implements CarService {
 
 
-    // for carslaerepoisty autowaring ->
-    private CarSalesRepository carSalesRepository;
+    // for ActiveReports autowiring ->
+    private final com.InsightIQ.InsightIQ.repository.CarSalesRepository carSalesRepository;
 
-    public CarSelesServiceImp(CarSalesRepository carSalesRepository) {
+    public CarSalesRepository(com.InsightIQ.InsightIQ.repository.CarSalesRepository carSalesRepository) {
         this.carSalesRepository = carSalesRepository;
     }
 
@@ -33,20 +31,20 @@ public class CarSelesServiceImp implements CarService {
 
 
         // add list ROW data
-        List<CarSaleEntity> carSaleEntities = new ArrayList<CarSaleEntity>();
+        List<CarSaleEntity> carSaleEntities = new ArrayList<>();
 
-        // if row fail count varible
+        // if row fail count variable
         int failCount = 0;
         int totalRecords = 0;
 
         try {
-            // csv(Byte) -> inputStream -> InputStreamReader -> charactor / text//         store it     <-  convert into byte;
+            // csv(Byte) -> inputStream -> InputStreamReader -> character / text//         store it     <-  convert into byte;
             InputStream inputStream = file.getInputStream();
-            // Row byte readble text convert
+            // Row byte readable text convert
             InputStreamReader inputStreamReader =
                     new InputStreamReader(inputStream, StandardCharsets.UTF_8);
 
-            // -> store temporary balti me dal kr rakh do alal dimga kharab ho gya itan asan tah
+            // -> store temporary balti me dal kr rake do all dimga kharab ho gya itan asan tah
             BufferedReader bufferedReader =
                     new BufferedReader(inputStreamReader);
 
@@ -54,7 +52,7 @@ public class CarSelesServiceImp implements CarService {
             // CSVFormating
             CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
                     .setHeader() // Header
-                    .setSkipHeaderRecord(true) // for skip -- NO treadted as a data coume
+                    .setSkipHeaderRecord(true) // for skip -- NO treated as a data column
                     .setIgnoreHeaderCase(true) // cas - insensitive
                     .setTrim(true) //
                     .build(); // build
@@ -65,7 +63,7 @@ public class CarSelesServiceImp implements CarService {
             for (CSVRecord record : parser.getRecords()) {
                 totalRecords++;
                 try {
-                    // cheak car exit or not
+                    // check car exit or not
                     String carNumber = record.get("Car Number");
                     boolean exit = carSalesRepository.exitsByCarNumber(carNumber);
                     if (exit) {
@@ -73,7 +71,7 @@ public class CarSelesServiceImp implements CarService {
                         System.out.println("Car Number " + carNumber + " is already exit");
                         continue;
                     }
-                    // set deatisl by entitty hat tari ki
+                    // set details by entity hat tari ki
                     CarSaleEntity carSales = new CarSaleEntity();
                     carSales.setCarNumber(record.get("Car Number"));
                     carSales.setCarNumber(record.get("Brand"));
@@ -96,18 +94,21 @@ public class CarSelesServiceImp implements CarService {
                     carSales.setWarrantyPeriod(record.get("Warranty Period"));
                     carSaleEntities.add(carSales);
 
-                } catch (NumberFormatException e) {
+                } catch (Exception e) {
+                    failCount++;
+                    System.out.println("Failed to parse CSV record: " + record.getRecordNumber());
                     throw new RuntimeException(e);
                 }
 
             }
+
             if (!carSaleEntities.isEmpty()) {
                 carSalesRepository.saveAll(carSaleEntities);
             }
-        } catch (Exception exception) {
-            throw new RuntimeException("Unable to upload(Parse) CSV file", exception);
-        }
 
+        } catch (Exception exception) {
+            throw new RuntimeException("Unable to upload(Parse) CSV file Failed" + exception.getMessage());
+        }
         int sucessCount = totalRecords - failCount;
         return new UploadSalesResponse(totalRecords, sucessCount, failCount);
     }
