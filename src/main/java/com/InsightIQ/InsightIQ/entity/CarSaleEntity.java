@@ -10,14 +10,14 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @Setter
-@Table(name="Product_sales")
+@Table(name = "Product_sales")
 public class CarSaleEntity {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column ( name = "car_number" , unique = true , nullable = false )
+    @Column(name = "car_number", unique = true, nullable = false)
     private String carNumber;
 
     private String carBrand;
@@ -32,7 +32,8 @@ public class CarSaleEntity {
 
     @Column(name = "payment_mode")
     private long price;
-    private double mileage;;
+    private double mileage;
+    ;
     private int engine;
     private String fuelType;
 

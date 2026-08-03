@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CarSalesRepository extends JpaRepository<CarSaleEntity,Long>{
+public interface CarSalesRepository extends JpaRepository<CarSaleEntity, Long> {
     boolean exitsByCarNumber(String carNumber);
 }

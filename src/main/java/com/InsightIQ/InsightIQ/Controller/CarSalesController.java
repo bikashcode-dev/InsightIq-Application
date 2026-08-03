@@ -1,4 +1,5 @@
 package com.InsightIQ.InsightIQ.Controller;
+
 import com.InsightIQ.InsightIQ.commons.response.ApiResponse;
 import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
 import org.springframework.http.HttpStatus;
@@ -19,19 +20,19 @@ public class CarSalesController {
     public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file) {
 
         //Hear we chack file is available or not
-        if(file.isEmpty()){
+        if (file.isEmpty()) {
 
             // Respone Status
-             UploadSalesResponse response = new  UploadSalesResponse(0, 0, 0);
+            UploadSalesResponse response = new UploadSalesResponse(0, 0, 0);
 
-             ApiResponse<UploadSalesResponse> apiResponse = new ApiResponse<>(
+            ApiResponse<UploadSalesResponse> apiResponse = new ApiResponse<>(
                     false,
                     "The File is Empty",
-                     response,
+                    response,
                     BAD_REQUEST.value());
 
 
-             return new ResponseEntity<ApiResponse<UploadSalesResponse>>(apiResponse,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<ApiResponse<UploadSalesResponse>>(apiResponse, HttpStatus.BAD_REQUEST);
         }
         return null;
 
