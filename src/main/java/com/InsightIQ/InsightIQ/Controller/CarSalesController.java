@@ -31,10 +31,32 @@ public class CarSalesController {
                     response,
                     BAD_REQUEST.value());
 
-
-            return new ResponseEntity<ApiResponse<UploadSalesResponse>>(apiResponse, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(
+                    apiResponse,
+                    HttpStatus.BAD_REQUEST);
         }
         return null;
-
     }
+
+    // method create api response  chack
+    public static ApiResponse<UploadSalesResponse> getApiResponse(UploadSalesResponse response) {
+
+        String message ;
+        boolean success;
+
+        if(response.getFailedCount()==0){
+            message ="Uploaded All Records Successfully";
+            success = true;
+        }
+        else if (response.getSuccessCount()==0){
+            message = "All records fail to upload";
+            success = false;
+        }
+        else{
+            message = "Uploaded Successfully with errors" + response.getFailedCount() + "rows failed";
+            success = false;
+        }
+        return new ApiResponse<UploadSalesResponse>(success,message,response,HttpStatus.OK.value());
+    }
+
 }
