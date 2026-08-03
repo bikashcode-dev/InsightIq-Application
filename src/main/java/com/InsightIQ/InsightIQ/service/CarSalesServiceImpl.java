@@ -5,6 +5,7 @@ import com.InsightIQ.InsightIQ.entity.CarSaleEntity;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -15,13 +16,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarSalesRepository implements CarService {
+
+@Service
+public class CarSalesServiceImpl implements CarService {
 
 
     // for ActiveReports autowiring ->
     private final com.InsightIQ.InsightIQ.repository.CarSalesRepository carSalesRepository;
 
-    public CarSalesRepository(com.InsightIQ.InsightIQ.repository.CarSalesRepository carSalesRepository) {
+    public CarSalesServiceImpl(com.InsightIQ.InsightIQ.repository.CarSalesRepository carSalesRepository) {
         this.carSalesRepository = carSalesRepository;
     }
 

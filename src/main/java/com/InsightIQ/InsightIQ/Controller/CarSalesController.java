@@ -2,6 +2,8 @@ package com.InsightIQ.InsightIQ.Controller;
 
 import com.InsightIQ.InsightIQ.commons.response.ApiResponse;
 import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
+import com.InsightIQ.InsightIQ.service.CarSalesServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,33 +12,50 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestController
 @RequestMapping("/api/car-sales")
 public class CarSalesController {
 
+
+    @Autowired
+    private final CarSalesServiceImpl carSalesService;
+
+    public CarSalesController(CarSalesServiceImpl carSalesService) {
+        this.carSalesService = carSalesService;
+    }
+
     @PostMapping("/upload-csv")
-    public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<ApiResponse<UploadSalesResponse>> uploadCsv(@RequestParam("file") MultipartFile file) {
+
 
         //Hear we chack file is available or not
         if (file.isEmpty()) {
 
-            // Response Status
             UploadSalesResponse response = new UploadSalesResponse(0, 0, 0);
-
             ApiResponse<UploadSalesResponse> apiResponse = new ApiResponse<>(
                     false,
                     "The File is Empty",
                     response,
-                    BAD_REQUEST.value());
+                    HttpStatus.BAD_REQUEST.value()) ;
 
-            return new ResponseEntity<>(
-                    apiResponse,
-                    HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
         }
-        return null;
+
+        UploadSalesResponse response = carSalesService.uploadCsv(file);
+        ApiResponse<UploadSalesResponse> apiResponse = getApiResponse(response);
+
+        return ResponseEntity.ok(apiResponse);
     }
+
+
+
+
+
+
+
+
+
 
     // method create api response  chack
     public static ApiResponse<UploadSalesResponse> getApiResponse(UploadSalesResponse response) {
@@ -56,7 +75,8 @@ public class CarSalesController {
             message = "Uploaded Successfully with errors" + response.getFailedCount() + "rows failed";
             success = false;
         }
-        return new ApiResponse<UploadSalesResponse>(success,message,response,HttpStatus.OK.value());
+        return new ApiResponse<>(success,message,response,HttpStatus.OK.value());
     }
 
 }
+
