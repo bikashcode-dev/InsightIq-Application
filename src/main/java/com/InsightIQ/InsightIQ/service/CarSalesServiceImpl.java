@@ -68,8 +68,8 @@ public class CarSalesServiceImpl implements CarService {
                 try {
                     // check car exit or not
                     String carNumber = record.get("Car Number");
-                    boolean exit = carSalesRepository.exitsByCarNumber(carNumber);
-                    if (exit) {
+                    boolean exists = carSalesRepository.existsByCarNumber(carNumber);
+                    if (exists) {
                         failCount++;
                         System.out.println("Car Number " + carNumber + " is already exit");
                         continue;
@@ -110,9 +110,10 @@ public class CarSalesServiceImpl implements CarService {
             }
 
         } catch (Exception exception) {
+
             throw new RuntimeException("Unable to upload(Parse) CSV file Failed" + exception.getMessage());
         }
-        int sucessCount = totalRecords - failCount;
-        return new UploadSalesResponse(totalRecords, sucessCount, failCount);
+        int  successCount = totalRecords - failCount;
+        return new UploadSalesResponse(totalRecords,  successCount, failCount);
     }
 }

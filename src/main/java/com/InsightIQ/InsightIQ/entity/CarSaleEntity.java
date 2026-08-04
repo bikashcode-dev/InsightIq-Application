@@ -1,7 +1,9 @@
 package com.InsightIQ.InsightIQ.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -11,6 +13,8 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @Table(name = "Product_sales")
+@NoArgsConstructor
+@AllArgsConstructor
 public class CarSaleEntity {
 
     @Id
