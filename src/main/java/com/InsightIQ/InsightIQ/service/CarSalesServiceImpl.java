@@ -2,6 +2,7 @@ package com.InsightIQ.InsightIQ.service;
 
 import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
 import com.InsightIQ.InsightIQ.entity.CarSaleEntity;
+import com.InsightIQ.InsightIQ.repository.CarSalesRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -13,18 +14,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class CarSalesServiceImpl implements CarService {
 
 
     // for ActiveReports autowiring ->
-    private final com.InsightIQ.InsightIQ.repository.CarSalesRepository carSalesRepository;
+    private final CarSalesRepository carSalesRepository;
 
-    public CarSalesServiceImpl(com.InsightIQ.InsightIQ.repository.CarSalesRepository carSalesRepository) {
+    public CarSalesServiceImpl(CarSalesRepository carSalesRepository) {
         this.carSalesRepository = carSalesRepository;
     }
 
@@ -76,25 +78,30 @@ public class CarSalesServiceImpl implements CarService {
                     }
                     // set details by entity hat tari ki
                     CarSaleEntity carSales = new CarSaleEntity();
+
                     carSales.setCarNumber(record.get("Car Number"));
-                    carSales.setCarNumber(record.get("Brand"));
-                    carSales.setCarNumber(record.get("Model"));
-                    carSales.setCarNumber(record.get("Color"));
+                    carSales.setCarBrand(record.get("Brand"));
+                    carSales.setCarModel(record.get("Model"));
+                    carSales.setCarColor(record.get("Color"));
+
                     carSales.setYear(Integer.parseInt(record.get("Year")));
-                    carSales.setTimeOfPurchaseDate(LocalDate.parse(record.get("Date of Purchase")));
-                    carSales.setTimeOfPurchaseDate(LocalDate.parse(record.get("Time of Purchase")));
-                    carSales.setPrice(Long.parseLong(record.get("Price (RS)")));
-                    carSales.setMileage(Double.parseDouble(record.get("Mileage (KM)")));
-                    carSales.setEngine(Integer.parseInt(record.get("Engine (CC)")));
+
+
+                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    carSales.setTimeOfPurchase(LocalTime.parse(record.get("Time of Purchase")));
+
+                    carSales.setPrice(Long.parseLong(record.get("Price (Rs)")));
+                    carSales.setMileage(Double.parseDouble(record.get("Mileage (km/l)")));
+                    carSales.setEngine(Integer.parseInt(record.get("Engine (cc)")));
+
                     carSales.setFuelType(record.get("Fuel Type"));
                     carSales.setPaymentMode(record.get("Payment Mode"));
                     carSales.setState(record.get("State"));
                     carSales.setCity(record.get("City"));
-                    carSales.setCountry(record.get("Country"));
                     carSales.setCustomerName(record.get("Customer Name"));
-                    carSales.setCustomerPhoneNumber(record.get("Customer Phone Number"));
-                    carSales.setCustomerEmail(record.get("Customer Email"));
-                    carSales.setWarrantyPeriod(record.get("Warranty Period"));
+                    carSales.setCustomerPhoneNumber(record.get("Contact Number"));
+                    carSales.setCustomerEmail(record.get("Email"));
+                    carSales.setWarrantyPeriod(record.get("Warranty Period (years)"));
                     carSaleEntities.add(carSales);
 
                 } catch (Exception e) {
@@ -110,7 +117,7 @@ public class CarSalesServiceImpl implements CarService {
             }
 
         } catch (Exception exception) {
-
+            failCount++;
             throw new RuntimeException("Unable to upload(Parse) CSV file Failed" + exception.getMessage());
         }
         int  successCount = totalRecords - failCount;

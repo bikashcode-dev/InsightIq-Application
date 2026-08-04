@@ -49,15 +49,6 @@ public class CarSalesController {
         return ResponseEntity.ok(apiResponse);
     }
 
-
-
-
-
-
-
-
-
-
     // method create api response  chack
     public static ApiResponse<UploadSalesResponse> getApiResponse(UploadSalesResponse response) {
 

@@ -27,27 +27,27 @@ public class CarSaleEntity {
     private String carBrand;
     private String carModel;
     private String carColor;
-    private int Year;
+    private int year;
 
     @Column(name = "time_of_purchase")
     private LocalTime timeOfPurchase;
     @Column(name = "date_of_purchase")
     private LocalDate timeOfPurchaseDate;
 
-    @Column(name = "payment_mode")
+    @Column(name = "price")
     private long price;
     private double mileage;
-    ;
     private int engine;
     private String fuelType;
 
-    @Column(name = "contact_number")
+    @Column(name = "payment_mode")
     private String paymentMode;
 
     private String state;
     private String city;
-    private String country;
     private String customerName;
+
+    @Column(name = "contact_number")
     private String customerPhoneNumber;
     private String customerEmail;
 
