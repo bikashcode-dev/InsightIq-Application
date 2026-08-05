@@ -7,7 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UploadSalesResponse {
 
-    private int totalRecords;       //Number of Records;
-    private int successCount;      //    Number of successCount;
-    private int failedCount;      //        Number of failedCount;
+    private int totalRecords;      //  Number of Records;
+    private int successCount;      //  Number of successCount;
+    private int failedCount;       //  Number of failedCount;
 }

@@ -19,14 +19,12 @@ import java.util.List;
 @RequestMapping("/api/car-sales")
 public class CarSalesController {
 
-
     @Autowired
     private final CarSalesServiceImpl carSalesService;
 
     public CarSalesController(CarSalesServiceImpl carSalesService) {
         this.carSalesService = carSalesService;
     }
-
 
     @PostMapping("/upload-csv")
     public ResponseEntity<ApiResponse<UploadSalesResponse>> uploadCsv(@RequestParam("file") MultipartFile file) {
@@ -76,7 +74,7 @@ public class CarSalesController {
     public ResponseEntity<?> getYearlyCount() {
 
         List<YearlyCountDto> carCounts  = carSalesService.getYearlyCarCounts();
-        ApiResponse<List<YearlyCountDto>> response = new ApiResponse<List<YearlyCountDto>>(
+        ApiResponse<List<YearlyCountDto>> response = new ApiResponse<>(
                 true,
                 "Data Read Successfully",
                 carCounts,
@@ -85,12 +83,11 @@ public class CarSalesController {
 
     }
 
-
     // api for states wise sale count
     @GetMapping("state-count")
     public ResponseEntity<?> getStateWiseCarCounts() {
         List<StateCountDto> carCounts = carSalesService.getStateWiseCarCounts();
-        ApiResponse<List<StateCountDto>> response = new ApiResponse<List<StateCountDto>>(
+        ApiResponse<List<StateCountDto>> response = new ApiResponse<>(
                 true,
                 "Data Read Successfully",
                 carCounts,
@@ -101,7 +98,7 @@ public class CarSalesController {
     @GetMapping("/average-pice")
     public ResponseEntity<?> getAveragePice() {
         AveragePriceDto averagePriceDto = carSalesService.getAveragePrice();
-        ApiResponse<AveragePriceDto> response = new ApiResponse<AveragePriceDto>(
+        ApiResponse<AveragePriceDto> response = new ApiResponse<>(
                 true,
                 "Data Read Successfully",
                 averagePriceDto,
