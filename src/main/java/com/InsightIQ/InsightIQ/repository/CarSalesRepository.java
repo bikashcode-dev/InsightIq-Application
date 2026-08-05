@@ -1,6 +1,7 @@
 package com.InsightIQ.InsightIQ.repository;
 
 
+import com.InsightIQ.InsightIQ.dto.StateCountDto;
 import com.InsightIQ.InsightIQ.dto.YearlyCountDto;
 import com.InsightIQ.InsightIQ.entity.CarSaleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +24,17 @@ public interface CarSalesRepository extends JpaRepository<CarSaleEntity, Long> {
     Order By c.year
 """)
     List<YearlyCountDto> getYearlyCount();
+
+
+    @Query("""
+     SELECT new com.InsightIQ.InsightIQ.dto.StateCountDto(
+             c.state,
+             COUNT(c)
+             )
+    FROM CarSaleEntity c
+    GROUP BY c.state
+    ORDER BY COUNT(c) DESC
+   """)
+
+    List<StateCountDto> getStateWiseCount();
 }

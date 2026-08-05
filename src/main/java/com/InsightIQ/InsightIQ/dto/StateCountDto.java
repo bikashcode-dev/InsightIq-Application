@@ -1,4 +1,7 @@
 package com.InsightIQ.InsightIQ.dto;
 
-public record StateCountDto() {
+public record StateCountDto(
+        String state,
+        Long count
+){
 }

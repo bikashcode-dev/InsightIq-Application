@@ -1,4 +1,5 @@
 package com.InsightIQ.InsightIQ.service;
+import com.InsightIQ.InsightIQ.dto.StateCountDto;
 import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
 import com.InsightIQ.InsightIQ.dto.YearlyCountDto;
 import com.InsightIQ.InsightIQ.entity.CarSaleEntity;
@@ -125,5 +126,10 @@ public class CarSalesServiceImpl implements CarService {
     @Override
     public List<YearlyCountDto> getYearlyCarCounts() {
         return carSalesRepository.getYearlyCount();
+    }
+
+    @Override
+    public List<StateCountDto> getStateWiseCarCounts() {
+        return carSalesRepository.getStateWiseCount();
     }
 }

@@ -1,9 +1,11 @@
 package com.InsightIQ.InsightIQ.Controller;
 
 import com.InsightIQ.InsightIQ.commons.response.ApiResponse;
+import com.InsightIQ.InsightIQ.dto.StateCountDto;
 import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
 import com.InsightIQ.InsightIQ.dto.YearlyCountDto;
 import com.InsightIQ.InsightIQ.service.CarSalesServiceImpl;
+import org.hibernate.sql.exec.spi.JdbcSelectExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,7 +73,7 @@ public class CarSalesController {
         return new ApiResponse<>(success,message,response,HttpStatus.OK.value());
     }
 
-    @GetMapping("/yearly-Count")
+    @GetMapping("/yearly-count")
     public ResponseEntity<?> getYearlyCount() {
 
         List<YearlyCountDto> carCounts  = carSalesService.getYearlyCarCounts();
@@ -83,5 +85,21 @@ public class CarSalesController {
                 return ResponseEntity.ok(response);
 
     }
+
+
+    // api for states wise sale count
+    @GetMapping("state-count")
+    public ResponseEntity<?> getStateWiseCarCounts() {
+        List<StateCountDto> carCounts = carSalesService.getStateWiseCarCounts();
+        ApiResponse<List<StateCountDto>> response = new ApiResponse<List<StateCountDto>>(
+                true,
+                "Data Read Successfully",
+                carCounts,
+                HttpStatus.OK.value());
+                return ResponseEntity.ok(response);
+
+
+    }
+
 }
 
