@@ -1,6 +1,6 @@
 package com.InsightIQ.InsightIQ.service;
-
 import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
+import com.InsightIQ.InsightIQ.dto.YearlyCountDto;
 import com.InsightIQ.InsightIQ.entity.CarSaleEntity;
 import com.InsightIQ.InsightIQ.repository.CarSalesRepository;
 import org.apache.commons.csv.CSVFormat;
@@ -8,12 +8,10 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -122,5 +120,10 @@ public class CarSalesServiceImpl implements CarService {
         }
         int  successCount = totalRecords - failCount;
         return new UploadSalesResponse(totalRecords,  successCount, failCount);
+    }
+
+    @Override
+    public List<YearlyCountDto> getYearlyCarCounts() {
+        return carSalesRepository.getYearlyCount();
     }
 }
