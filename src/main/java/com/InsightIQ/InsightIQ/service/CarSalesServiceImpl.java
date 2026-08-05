@@ -1,4 +1,5 @@
 package com.InsightIQ.InsightIQ.service;
+import com.InsightIQ.InsightIQ.dto.AveragePriceDto;
 import com.InsightIQ.InsightIQ.dto.StateCountDto;
 import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
 import com.InsightIQ.InsightIQ.dto.YearlyCountDto;
@@ -128,8 +129,14 @@ public class CarSalesServiceImpl implements CarService {
         return carSalesRepository.getYearlyCount();
     }
 
+
     @Override
     public List<StateCountDto> getStateWiseCarCounts() {
         return carSalesRepository.getStateWiseCount();
+    }
+
+    @Override
+    public AveragePriceDto getAveragePrice() {
+        return carSalesRepository.getAveragePrice();
     }
 }

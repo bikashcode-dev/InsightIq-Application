@@ -1,11 +1,11 @@
 package com.InsightIQ.InsightIQ.Controller;
 
 import com.InsightIQ.InsightIQ.commons.response.ApiResponse;
+import com.InsightIQ.InsightIQ.dto.AveragePriceDto;
 import com.InsightIQ.InsightIQ.dto.StateCountDto;
 import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
 import com.InsightIQ.InsightIQ.dto.YearlyCountDto;
 import com.InsightIQ.InsightIQ.service.CarSalesServiceImpl;
-import org.hibernate.sql.exec.spi.JdbcSelectExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.concurrent.SubmissionPublisher;
 
 
 @RestController
@@ -97,9 +96,18 @@ public class CarSalesController {
                 carCounts,
                 HttpStatus.OK.value());
                 return ResponseEntity.ok(response);
-
-
     }
 
+    @GetMapping("/average-pice")
+    public ResponseEntity<?> getAveragePice() {
+        AveragePriceDto averagePriceDto = carSalesService.getAveragePrice();
+        ApiResponse<AveragePriceDto> response = new ApiResponse<AveragePriceDto>(
+                true,
+                "Data Read Successfully",
+                averagePriceDto,
+                HttpStatus.OK.value()
+        );
+        return ResponseEntity.ok(response);
+    }
 }
 

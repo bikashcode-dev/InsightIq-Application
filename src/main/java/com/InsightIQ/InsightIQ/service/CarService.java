@@ -1,5 +1,6 @@
 package com.InsightIQ.InsightIQ.service;
 
+import com.InsightIQ.InsightIQ.dto.AveragePriceDto;
 import com.InsightIQ.InsightIQ.dto.StateCountDto;
 import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
 import com.InsightIQ.InsightIQ.dto.YearlyCountDto;
@@ -13,4 +14,5 @@ public interface CarService {
     UploadSalesResponse uploadCsv(MultipartFile file);
     List<YearlyCountDto> getYearlyCarCounts();
     List<StateCountDto> getStateWiseCarCounts();
+    AveragePriceDto getAveragePrice();
 }
