@@ -1,8 +1,5 @@
 package com.InsightIQ.InsightIQ.service;
-import com.InsightIQ.InsightIQ.dto.AveragePriceDto;
-import com.InsightIQ.InsightIQ.dto.StateCountDto;
-import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
-import com.InsightIQ.InsightIQ.dto.YearlyCountDto;
+import com.InsightIQ.InsightIQ.dto.*;
 import com.InsightIQ.InsightIQ.entity.CarSaleEntity;
 import com.InsightIQ.InsightIQ.repository.CarSalesRepository;
 import org.apache.commons.csv.CSVFormat;
@@ -14,10 +11,10 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class CarSalesServiceImpl implements CarService {
@@ -49,7 +46,7 @@ public class CarSalesServiceImpl implements CarService {
             InputStreamReader inputStreamReader =
                     new InputStreamReader(inputStream, StandardCharsets.UTF_8);
 
-            // -> store temporary balti me dal kr rake do all dimga kharab ho gya itan asan tah
+            // -> store temporary balti me dal kr rake do all mind disturb ho gya asan tah
             BufferedReader bufferedReader =
                     new BufferedReader(inputStreamReader);
 
@@ -87,7 +84,7 @@ public class CarSalesServiceImpl implements CarService {
                     carSales.setYear(Integer.parseInt(record.get("Year")));
 
 
-                    carSales.setTimeOfPurchaseDate(LocalDate.parse(record.get("Date of Purchase")));
+                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                     carSales.setTimeOfPurchase(LocalTime.parse(record.get("Time of Purchase")));
 
                     carSales.setPrice(Long.parseLong(record.get("Price (Rs)")));
@@ -138,5 +135,10 @@ public class CarSalesServiceImpl implements CarService {
     @Override
     public AveragePriceDto getAveragePrice() {
         return carSalesRepository.getAveragePrice();
+    }
+
+    @Override
+    public List<BrandCountDto> getBrandCounts() {
+        return carSalesRepository.getBrandCount();
     }
 }

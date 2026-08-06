@@ -1,10 +1,7 @@
 package com.InsightIQ.InsightIQ.Controller;
 
 import com.InsightIQ.InsightIQ.commons.response.ApiResponse;
-import com.InsightIQ.InsightIQ.dto.AveragePriceDto;
-import com.InsightIQ.InsightIQ.dto.StateCountDto;
-import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
-import com.InsightIQ.InsightIQ.dto.YearlyCountDto;
+import com.InsightIQ.InsightIQ.dto.*;
 import com.InsightIQ.InsightIQ.service.CarSalesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +24,7 @@ public class CarSalesController {
     }
 
     @PostMapping("/upload-csv")
-    public ResponseEntity<ApiResponse<UploadSalesResponse>> uploadCsv(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadCsv(@RequestParam("file") MultipartFile file) {
 
 
         //Hear we chack file is available or not
@@ -102,6 +99,19 @@ public class CarSalesController {
                 true,
                 "Data Read Successfully",
                 averagePriceDto,
+                HttpStatus.OK.value()
+        );
+        return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping("/brand-count")
+    public ResponseEntity<?> getBrandCount() {
+        List<BrandCountDto> brandCountDos = carSalesService.getBrandCounts();
+        ApiResponse<List<BrandCountDto>> response = new ApiResponse<>(
+                true,
+                "Data Read Successfully",
+                brandCountDos,
                 HttpStatus.OK.value()
         );
         return ResponseEntity.ok(response);

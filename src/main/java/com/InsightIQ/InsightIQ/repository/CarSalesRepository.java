@@ -2,6 +2,7 @@ package com.InsightIQ.InsightIQ.repository;
 
 
 import com.InsightIQ.InsightIQ.dto.AveragePriceDto;
+import com.InsightIQ.InsightIQ.dto.BrandCountDto;
 import com.InsightIQ.InsightIQ.dto.StateCountDto;
 import com.InsightIQ.InsightIQ.dto.YearlyCountDto;
 import com.InsightIQ.InsightIQ.entity.CarSaleEntity;
@@ -46,6 +47,15 @@ public interface CarSalesRepository extends JpaRepository<CarSaleEntity, Long> {
    """)
     AveragePriceDto getAveragePrice();
 
-
+    @Query("""
+            Select new com.InsightIQ.InsightIQ.dto.BrandCountDto(
+            c.carBrand,
+            Count(c)
+            )
+            From CarSaleEntity c
+            Group By c.carBrand
+            Order By Count(c) Desc
+           """)
+    List<BrandCountDto> getBrandCount();
 
 }

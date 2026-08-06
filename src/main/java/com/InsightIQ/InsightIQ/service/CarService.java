@@ -1,9 +1,6 @@
 package com.InsightIQ.InsightIQ.service;
 
-import com.InsightIQ.InsightIQ.dto.AveragePriceDto;
-import com.InsightIQ.InsightIQ.dto.StateCountDto;
-import com.InsightIQ.InsightIQ.dto.UploadSalesResponse;
-import com.InsightIQ.InsightIQ.dto.YearlyCountDto;
+import com.InsightIQ.InsightIQ.dto.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,4 +12,5 @@ public interface CarService {
     List<YearlyCountDto> getYearlyCarCounts();
     List<StateCountDto> getStateWiseCarCounts();
     AveragePriceDto getAveragePrice();
+    List<BrandCountDto> getBrandCounts();
 }
