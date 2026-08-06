@@ -116,5 +116,18 @@ public class CarSalesController {
         );
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/fuel-type-count")
+    public ResponseEntity<?> getFuelTypeCont(){
+        List<FuelTypeCountDto> fuelTypeCountDos = carSalesService.getFuelTypeCounts();
+        ApiResponse<List<FuelTypeCountDto>> response = new ApiResponse<>(
+                true,
+                "Data Read Successfully",
+                fuelTypeCountDos,
+                HttpStatus.OK.value()
+        );
+        return ResponseEntity.ok(response);
+    }
 }
+
 

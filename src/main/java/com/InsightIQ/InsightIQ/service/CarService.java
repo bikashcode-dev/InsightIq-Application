@@ -13,4 +13,5 @@ public interface CarService {
     List<StateCountDto> getStateWiseCarCounts();
     AveragePriceDto getAveragePrice();
     List<BrandCountDto> getBrandCounts();
+    List<FuelTypeCountDto> getFuelTypeCounts();
 }

@@ -141,4 +141,8 @@ public class CarSalesServiceImpl implements CarService {
     public List<BrandCountDto> getBrandCounts() {
         return carSalesRepository.getBrandCount();
     }
+    @Override
+    public List<FuelTypeCountDto> getFuelTypeCounts() {
+        return carSalesRepository.getFuelTypeCount();
+    }
 }

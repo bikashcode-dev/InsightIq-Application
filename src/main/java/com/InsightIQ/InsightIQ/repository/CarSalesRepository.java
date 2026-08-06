@@ -1,10 +1,7 @@
 package com.InsightIQ.InsightIQ.repository;
 
 
-import com.InsightIQ.InsightIQ.dto.AveragePriceDto;
-import com.InsightIQ.InsightIQ.dto.BrandCountDto;
-import com.InsightIQ.InsightIQ.dto.StateCountDto;
-import com.InsightIQ.InsightIQ.dto.YearlyCountDto;
+import com.InsightIQ.InsightIQ.dto.*;
 import com.InsightIQ.InsightIQ.entity.CarSaleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -58,4 +55,14 @@ public interface CarSalesRepository extends JpaRepository<CarSaleEntity, Long> {
            """)
     List<BrandCountDto> getBrandCount();
 
+    @Query("""
+    SELECT new com.InsightIQ.InsightIQ.dto.FuelTypeCountDto(
+        c.fuelType,
+        COUNT(c)
+    )
+    FROM CarSaleEntity c
+    GROUP BY c.fuelType
+    ORDER BY COUNT(c) DESC
+""")
+    List<FuelTypeCountDto> getFuelTypeCount();
 }
