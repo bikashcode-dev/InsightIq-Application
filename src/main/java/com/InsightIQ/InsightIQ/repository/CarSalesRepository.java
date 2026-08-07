@@ -55,6 +55,7 @@ public interface CarSalesRepository extends JpaRepository<CarSaleEntity, Long> {
            """)
     List<BrandCountDto> getBrandCount();
 
+    // Fuel type query -----------------
     @Query("""
     SELECT new com.InsightIQ.InsightIQ.dto.FuelTypeCountDto(
         c.fuelType,
@@ -65,4 +66,16 @@ public interface CarSalesRepository extends JpaRepository<CarSaleEntity, Long> {
     ORDER BY COUNT(c) DESC
 """)
     List<FuelTypeCountDto> getFuelTypeCount();
+
+
+    @Query("""
+    SELECT new com.InsightIQ.InsightIQ.dto.PaymentModeCountDto(
+        c.paymentMode,
+        COUNT(c)
+    )
+    FROM CarSaleEntity c
+    GROUP BY c.paymentMode
+    ORDER BY COUNT(c) DESC
+""")
+    List<PaymentModeCountDto> getPaymentTypeCount();
 }

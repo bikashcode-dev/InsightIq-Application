@@ -128,6 +128,19 @@ public class CarSalesController {
         );
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/payment-mode-count")
+    public ResponseEntity<?> getPaymentModeCount(){
+      List<PaymentModeCountDto> paymentModeCountDos = carSalesService.getPaymentModeCounts();
+      ApiResponse<List<PaymentModeCountDto>> response = new ApiResponse<>(
+              true,
+              "Data Read successfully",
+              paymentModeCountDos,
+              HttpStatus.OK.value()
+
+      );
+      return ResponseEntity.ok(response);
+    }
 }
 
 

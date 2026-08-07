@@ -14,4 +14,5 @@ public interface CarService {
     AveragePriceDto getAveragePrice();
     List<BrandCountDto> getBrandCounts();
     List<FuelTypeCountDto> getFuelTypeCounts();
+    List<PaymentModeCountDto> getPaymentModeCounts();
 }

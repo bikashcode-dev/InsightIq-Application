@@ -139,10 +139,15 @@ public class CarSalesServiceImpl implements CarService {
 
     @Override
     public List<BrandCountDto> getBrandCounts() {
-        return carSalesRepository.getBrandCount();
+        return List.of();
     }
     @Override
     public List<FuelTypeCountDto> getFuelTypeCounts() {
         return carSalesRepository.getFuelTypeCount();
+    }
+
+    @Override
+    public List<PaymentModeCountDto> getPaymentModeCounts() {
+        return carSalesRepository.getPaymentTypeCount();
     }
 }
