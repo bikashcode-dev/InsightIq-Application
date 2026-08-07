@@ -15,4 +15,5 @@ public interface CarService {
     List<PaymentModeCountDto> getPaymentModeCounts();
     List<ModelCountDto> getModelCounts();
     List<MonthlySalesDto> getMonthlySalesCount();
+    List<CitesWiseCountDto> getCitesWiseCount();
 }

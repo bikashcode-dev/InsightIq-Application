@@ -161,4 +161,9 @@ public class CarSalesServiceImpl implements CarService {
         return carSalesRepository.getMonthlySales();
     }
 
+    @Override
+    public List<CitesWiseCountDto> getCitesWiseCount() {
+        return carSalesRepository.getCitesWiseCount();
+    }
+
 }

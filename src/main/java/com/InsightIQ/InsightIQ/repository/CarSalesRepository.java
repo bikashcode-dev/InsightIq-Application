@@ -103,4 +103,7 @@ public interface CarSalesRepository extends JpaRepository<CarSaleEntity, Long> {
     ORDER BY MONTH(c.timeOfPurchaseDate)
 """)
     List<MonthlySalesDto> getMonthlySales();
+
+    List<CitesWiseCountDto> getCitesWiseCount();
+
 }
