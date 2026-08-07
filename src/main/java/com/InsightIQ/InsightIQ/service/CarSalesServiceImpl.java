@@ -155,4 +155,10 @@ public class CarSalesServiceImpl implements CarService {
     public List<ModelCountDto> getModelCounts() {
         return carSalesRepository.getModelCount();
     }
+
+    @Override
+    public List<MonthlySalesDto> getMonthlySalesCount() {
+        return carSalesRepository.getMonthlySales();
+    }
+
 }

@@ -148,6 +148,18 @@ public class CarSalesController {
         );
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/monthly-sales")
+    public ResponseEntity<?> getMonthlySales(){
+        List<MonthlySalesDto> monthlySalesDos = carSalesService.getMonthlySalesCount();
+        ApiResponse<List<MonthlySalesDto>> response = new ApiResponse<>(
+                true,
+                "Data Read successfully",
+                monthlySalesDos,
+                HttpStatus.OK.value()
+        );
+        return ResponseEntity.ok(response);
+    }
 }
 
 

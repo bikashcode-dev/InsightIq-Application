@@ -90,4 +90,17 @@ public interface CarSalesRepository extends JpaRepository<CarSaleEntity, Long> {
             Order By Count (c) desc
             """)
     List<ModelCountDto> getModelCount();
+
+    // Moth ly wises sale
+
+    @Query("""
+    SELECT new com.InsightIQ.InsightIQ.dto.MonthlySalesDto(
+        MONTH(c.timeOfPurchaseDate),
+        COUNT(c)
+    )
+    FROM CarSaleEntity c
+    GROUP BY MONTH(c.timeOfPurchaseDate)
+    ORDER BY MONTH(c.timeOfPurchaseDate)
+""")
+    List<MonthlySalesDto> getMonthlySales();
 }
