@@ -1,6 +1,6 @@
 package com.InsightIQ.InsightIQ.dto;
 
-public record CitesWiseCountDto(
+public record CityCountDto(
         String city,
         Long count
 ) {

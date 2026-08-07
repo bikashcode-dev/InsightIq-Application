@@ -161,6 +161,17 @@ public class CarSalesController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/city-count")
+    public ResponseEntity<?> getCityCount(){
+        List<CityCountDto> citesWiseCountDtos = carSalesService.getCitesWiseCount();
+        ApiResponse<List<CityCountDto>> response = new ApiResponse<>(
+                true,
+                "Data Read successfully",
+                citesWiseCountDtos,
+                HttpStatus.OK.value()
+        );
+        return ResponseEntity.ok(response);
+    }
 }
 
 

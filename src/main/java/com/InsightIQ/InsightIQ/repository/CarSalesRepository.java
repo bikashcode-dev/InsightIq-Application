@@ -104,6 +104,15 @@ public interface CarSalesRepository extends JpaRepository<CarSaleEntity, Long> {
 """)
     List<MonthlySalesDto> getMonthlySales();
 
-    List<CitesWiseCountDto> getCitesWiseCount();
 
+    @Query("""  
+    SELECT new com.InsightIQ.InsightIQ.dto.CityCountDto(
+    c.city,
+    COUNT(c)
+     )
+     FROM CarSaleEntity c
+    GROUP BY c.city
+     ORDER BY COUNT(c) DESC
+    """)
+    List<CityCountDto> getCitesWiseCount();
 }
