@@ -150,4 +150,9 @@ public class CarSalesServiceImpl implements CarService {
     public List<PaymentModeCountDto> getPaymentModeCounts() {
         return carSalesRepository.getPaymentTypeCount();
     }
+
+    @Override
+    public List<ModelCountDto> getModelCounts() {
+        return carSalesRepository.getModelCount();
+    }
 }

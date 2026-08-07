@@ -6,7 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@Service
 public interface CarService {
     UploadSalesResponse uploadCsv(MultipartFile file);
     List<YearlyCountDto> getYearlyCarCounts();
@@ -15,4 +14,5 @@ public interface CarService {
     List<BrandCountDto> getBrandCounts();
     List<FuelTypeCountDto> getFuelTypeCounts();
     List<PaymentModeCountDto> getPaymentModeCounts();
+    List<ModelCountDto> getModelCounts();
 }

@@ -78,4 +78,16 @@ public interface CarSalesRepository extends JpaRepository<CarSaleEntity, Long> {
     ORDER BY COUNT(c) DESC
 """)
     List<PaymentModeCountDto> getPaymentTypeCount();
+
+    //
+    @Query("""
+            Select  new com.InsightIQ.InsightIQ.dto.ModelCountDto(
+            c.carModel,
+            Count(c)
+            )
+            From CarSaleEntity c
+            Group By c.carModel
+            Order By Count (c) desc
+            """)
+    List<ModelCountDto> getModelCount();
 }

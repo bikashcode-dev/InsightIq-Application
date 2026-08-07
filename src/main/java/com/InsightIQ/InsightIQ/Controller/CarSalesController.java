@@ -1,14 +1,11 @@
 package com.InsightIQ.InsightIQ.Controller;
-
 import com.InsightIQ.InsightIQ.commons.response.ApiResponse;
 import com.InsightIQ.InsightIQ.dto.*;
 import com.InsightIQ.InsightIQ.service.CarSalesServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 
 
@@ -16,7 +13,6 @@ import java.util.List;
 @RequestMapping("/api/car-sales")
 public class CarSalesController {
 
-    @Autowired
     private final CarSalesServiceImpl carSalesService;
 
     public CarSalesController(CarSalesServiceImpl carSalesService) {
@@ -66,7 +62,7 @@ public class CarSalesController {
         }
         return new ApiResponse<>(success,message,response,HttpStatus.OK.value());
     }
-
+    //for year api - count
     @GetMapping("/yearly-count")
     public ResponseEntity<?> getYearlyCount() {
 
@@ -92,8 +88,8 @@ public class CarSalesController {
                 return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/average-pice")
-    public ResponseEntity<?> getAveragePice() {
+    @GetMapping("/average-price")
+    public ResponseEntity<?> getAveragePrice() {
         AveragePriceDto averagePriceDto = carSalesService.getAveragePrice();
         ApiResponse<AveragePriceDto> response = new ApiResponse<>(
                 true,
@@ -137,9 +133,20 @@ public class CarSalesController {
               "Data Read successfully",
               paymentModeCountDos,
               HttpStatus.OK.value()
-
       );
       return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/model-count")
+    public ResponseEntity<?> getModelCount(){
+        List<ModelCountDto> modelCountDos = carSalesService.getModelCounts();
+        ApiResponse<List<ModelCountDto>> response = new ApiResponse<>(
+                true,
+                "Data Read successfully",
+                modelCountDos,
+                HttpStatus.OK.value()
+        );
+        return ResponseEntity.ok(response);
     }
 }
 
