@@ -2,6 +2,7 @@ package com.InsightIQ.InsightIQ.Controller;
 import com.InsightIQ.InsightIQ.commons.response.ApiResponse;
 import com.InsightIQ.InsightIQ.dto.*;
 import com.InsightIQ.InsightIQ.service.CarSalesServiceImpl;
+import com.InsightIQ.InsightIQ.service.CarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/car-sales")
 public class CarSalesController {
 
-    private final CarSalesServiceImpl carSalesService;
+    private final CarService carSalesService;
 
     public CarSalesController(CarSalesServiceImpl carSalesService) {
         this.carSalesService = carSalesService;
@@ -77,7 +78,7 @@ public class CarSalesController {
     }
 
     // api for states wise sale count
-    @GetMapping("state-count")
+    @GetMapping("/state-count")
     public ResponseEntity<?> getStateWiseCarCounts() {
         List<StateCountDto> carCounts = carSalesService.getStateWiseCarCounts();
         ApiResponse<List<StateCountDto>> response = new ApiResponse<>(
