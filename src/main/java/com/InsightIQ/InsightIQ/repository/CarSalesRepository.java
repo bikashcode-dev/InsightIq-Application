@@ -5,6 +5,7 @@ import com.InsightIQ.InsightIQ.dto.*;
 import com.InsightIQ.InsightIQ.entity.CarSaleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -99,12 +100,13 @@ public interface CarSalesRepository extends JpaRepository<CarSaleEntity, Long> {
         COUNT(c)
     )
     FROM CarSaleEntity c
+    Where year (c.timeOfPurchaseDate)=:year
     GROUP BY MONTH(c.timeOfPurchaseDate)
     ORDER BY MONTH(c.timeOfPurchaseDate)
 """)
-    List<MonthlySalesDto> getMonthlySales();
+    List<MonthlySalesDto> getMonthlySales(@Param("year") int year);
 
-
+// city wise count
     @Query("""  
     SELECT new com.InsightIQ.InsightIQ.dto.CityCountDto(
     c.city,

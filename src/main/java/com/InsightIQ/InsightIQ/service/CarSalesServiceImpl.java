@@ -73,7 +73,7 @@ public class CarSalesServiceImpl implements CarService {
                         System.out.println("Car Number " + carNumber + " is already exit");
                         continue;
                     }
-                    // set details by entity hat tari ki
+                    // set details by entity
                     CarSaleEntity carSales = new CarSaleEntity();
 
                     carSales.setCarNumber(record.get("Car Number"));
@@ -129,6 +129,7 @@ public class CarSalesServiceImpl implements CarService {
 
     @Override
     public List<StateCountDto> getStateWiseCarCounts() {
+
         return carSalesRepository.getStateWiseCount();
     }
 
@@ -139,7 +140,7 @@ public class CarSalesServiceImpl implements CarService {
 
     @Override
     public List<BrandCountDto> getBrandCounts() {
-        return List.of();
+        return carSalesRepository.getBrandCount();
     }
     @Override
     public List<FuelTypeCountDto> getFuelTypeCounts() {
@@ -157,8 +158,8 @@ public class CarSalesServiceImpl implements CarService {
     }
 
     @Override
-    public List<MonthlySalesDto> getMonthlySalesCount() {
-        return carSalesRepository.getMonthlySales();
+    public List<MonthlySalesDto> getMonthlySalesCount(int year) {
+        return carSalesRepository.getMonthlySales(year);
     }
 
     @Override

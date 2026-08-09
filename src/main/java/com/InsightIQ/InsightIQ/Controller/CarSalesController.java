@@ -151,8 +151,8 @@ public class CarSalesController {
     }
 
     @GetMapping("/monthly-sales")
-    public ResponseEntity<?> getMonthlySales(){
-        List<MonthlySalesDto> monthlySalesDos = carSalesService.getMonthlySalesCount();
+    public ResponseEntity<?> getMonthlySales(@RequestParam int year){
+        List<MonthlySalesDto> monthlySalesDos = carSalesService.getMonthlySalesCount(year);
         ApiResponse<List<MonthlySalesDto>> response = new ApiResponse<>(
                 true,
                 "Data Read successfully",
