@@ -149,6 +149,8 @@ InsightIQ automatically identifies:
 * Customer Purchase Trends
 * Business Opportunities
 * Actionable Recommendations
+* compare query
+* sold $ Unsold api 
 
 ---
 
@@ -173,6 +175,7 @@ Python generates dynamic visualizations using:
 * Pie Charts
 * Line Charts
 * Bar Charts
+* comparsion chat
 
 ---
 
