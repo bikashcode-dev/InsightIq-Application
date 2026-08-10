@@ -13,5 +13,10 @@ public class HealthCheckController {
     public String HealthCheck() {
         return "The api Health is ok , Running ";
     }
+    @GetMapping("/api/check")
+
+    public String check() {
+        return "The api Health is ok , Running ";
+    }
 
 }
