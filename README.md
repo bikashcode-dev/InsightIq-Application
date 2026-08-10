@@ -9,8 +9,7 @@
 ![Python](https://img.shields.io/badge/Python-Visualization-yellow)
 ![Ollama](https://img.shields.io/badge/Ollama-Local%20LLM-black)
 ![License](https://img.shields.io/badge/License-MIT-green)
-
----
+![Spring ai](https://img.shields.io/badge/License-MIT-green)
 
 # 📖 Overview
 
