@@ -168,4 +168,9 @@ public class CarSalesServiceImpl implements CarService {
         return carSalesRepository.getCitesWiseCount();
     }
 
+    @Override
+    public TotalSalesDto getTotalSales() {
+        return carSalesRepository.getTotalSales();
+    }
+
 }

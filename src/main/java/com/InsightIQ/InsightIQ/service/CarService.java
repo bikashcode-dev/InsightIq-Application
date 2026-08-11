@@ -16,4 +16,5 @@ public interface CarService {
     List<ModelCountDto> getModelCounts();
     List<MonthlySalesDto> getMonthlySalesCount(int year);
     List<CityCountDto> getCitesWiseCount();
+    TotalSalesDto getTotalSales();
 }

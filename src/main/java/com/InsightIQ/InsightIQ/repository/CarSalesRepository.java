@@ -117,4 +117,12 @@ public interface CarSalesRepository extends JpaRepository<CarSaleEntity, Long> {
      ORDER BY COUNT(c) DESC
     """)
     List<CityCountDto> getCitesWiseCount();
+
+
+    // Tota car sold
+    @Query("""
+    SELECT new com.InsightIQ.InsightIQ.dto.TotalSalesDto(COUNT(c))
+    FROM CarSaleEntity c
+    """)
+    TotalSalesDto getTotalSales();
 }

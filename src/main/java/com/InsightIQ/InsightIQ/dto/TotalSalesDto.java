@@ -1,4 +1,6 @@
 package com.InsightIQ.InsightIQ.dto;
 
-public record TotalSalesDto() {
+public record TotalSalesDto(
+        Long totalSales
+) {
 }

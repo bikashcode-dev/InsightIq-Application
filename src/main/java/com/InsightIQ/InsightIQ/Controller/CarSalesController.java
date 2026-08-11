@@ -173,4 +173,16 @@ public class CarSalesController {
         );
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/total-sales")
+     public ResponseEntity<?> getMonthlySales(){
+        TotalSalesDto totalSalesDto = carSalesService.getTotalSales();
+        ApiResponse<TotalSalesDto> response = new ApiResponse<>(
+                true,
+                "Data Read successfully",
+                totalSalesDto,
+                HttpStatus.OK.value()
+        );
+        return ResponseEntity.ok(response);
+     }
 }
