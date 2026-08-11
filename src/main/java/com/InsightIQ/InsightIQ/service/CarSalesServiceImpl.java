@@ -85,6 +85,7 @@ public class CarSalesServiceImpl implements CarService {
 
 
                     DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    carSales.setTimeOfPurchase(LocalTime.parse(record.get("Time of Purchase"), dateFormatter));
                     carSales.setTimeOfPurchase(LocalTime.parse(record.get("Time of Purchase")));
 
                     carSales.setPrice(Long.parseLong(record.get("Price (Rs)")));
