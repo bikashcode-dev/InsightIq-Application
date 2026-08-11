@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @Service
@@ -12,7 +14,7 @@ public class AIQueryServiceImpl implements AIQueryService {
 
 
     private final JdbcTemplate jdbcTemplate;
-    private ChatClient chatClient;
+    private final ChatClient chatClient;
 
     public AIQueryServiceImpl(JdbcTemplate jdbcTemplate, ChatClient.Builder builder) {
         this.jdbcTemplate = jdbcTemplate;
@@ -42,7 +44,9 @@ public class AIQueryServiceImpl implements AIQueryService {
 
             System.out.println(result);
 
-            return null;
+            // convert into human language
+
+            return toNaturalLanguage(question,result);
 
         }
         catch (Exception e){
@@ -51,6 +55,35 @@ public class AIQueryServiceImpl implements AIQueryService {
         }
 
     }
+
+    // Read ble language convert : -
+    private String toNaturalLanguage(String question, List<Map<String,Object>> result){
+        String prompt = """
+                Convert database result into a human readable answer.
+                
+                User Questions:
+                
+                """ + question + """
+                
+                DB Results:
+                """ + result.toString() + """
+                
+                Rules:
+                - Answer clearly ( Don't write too much )
+                - Do not show JSON
+                - DO not explain SQL queries;
+                """;
+        return Objects.requireNonNull(chatClient
+                        .prompt()
+                        .user(prompt)
+                        .call()
+                        .content())
+                        .trim();
+    }
+
+
+
+
     // validation layer
     private boolean isSafe(String sql) {
         String lowerCase = sql.toLowerCase().trim();
