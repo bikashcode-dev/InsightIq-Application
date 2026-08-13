@@ -1,17 +1,19 @@
 package com.InsightIQ.InsightIQ.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @Service
 public class AIQueryServiceImpl implements AIQueryService {
 
+    private static final Logger log = LoggerFactory.getLogger(AIQueryServiceImpl.class);
 
     private final JdbcTemplate jdbcTemplate;
     private final ChatClient chatClient;
@@ -34,7 +36,7 @@ public class AIQueryServiceImpl implements AIQueryService {
         }
 
         try {
-            System.out.println( "Generate Query "+sql);
+            log.debug("Generate SQL query :{}",sql);
             List<Map<String,Object>> result =  jdbcTemplate.queryForList(sql);
 
             if(result.isEmpty()){
@@ -42,7 +44,7 @@ public class AIQueryServiceImpl implements AIQueryService {
                 return "INVALID - No question found";
             }
 
-            System.out.println(result);
+            log.debug("Query returned: {}", result.size());
 
             // convert into human language
 
@@ -50,35 +52,45 @@ public class AIQueryServiceImpl implements AIQueryService {
 
         }
         catch (Exception e){
-            e.printStackTrace();
+            log.error(" Data query execution failed" , e);
             return "Query failed: - "+e.getMessage();
         }
 
     }
 
     // Read ble language convert : -
-    private String toNaturalLanguage(String question, List<Map<String,Object>> result){
-        String prompt = """
-                Convert database result into a human readable answer.
-                
-                User Questions:
-                
-                """ + question + """
-                
-                DB Results:
-                """ + result.toString() + """
-                
-                Rules:
-                - Answer clearly ( Don't write too much )
-                - Do not show JSON
-                - DO not explain SQL queries;
-                """;
-        return Objects.requireNonNull(chatClient
-                        .prompt()
-                        .user(prompt)
-                        .call()
-                        .content())
-                        .trim();
+    private String toNaturalLanguage(
+            String question,
+            List<Map<String,Object>> result){
+
+        try {
+            log.debug("Converting database result into natural language");
+            String prompt = """
+                    Convert database result into a human readable answer.
+                    
+                    User Questions:
+                    
+                    """ + question + """
+                    
+                    DB Results:
+                    """ + result.toString() + """
+                    
+                    Rules:
+                    - Answer clearly ( Don't write too much )
+                    - Do not show JSON
+                    - DO not explain SQL queries;
+                    """;
+            return Objects.requireNonNull(chatClient
+                            .prompt()
+                            .user(prompt)
+                            .call()
+                            .content())
+                    .trim();
+        }
+        catch (Exception e){
+            log.error("AI - response generation failed " , e);
+            return "Unable to convert database result into natural language";
+        }
     }
 
 
@@ -87,7 +99,6 @@ public class AIQueryServiceImpl implements AIQueryService {
     // validation layer
     private boolean isSafe(String sql) {
         String lowerCase = sql.toLowerCase().trim();
-
         return lowerCase.startsWith("select")
                 && !lowerCase.contains("drop")
                 && !lowerCase.contains("delete")

@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 @Service
 public class CarSalesServiceImpl implements CarService {
 
+    static final DateTimeFormatter PURCHASE_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     // for ActiveReports autowiring ->
     private final CarSalesRepository carSalesRepository;
@@ -84,9 +86,8 @@ public class CarSalesServiceImpl implements CarService {
                     carSales.setYear(Integer.parseInt(record.get("Year")));
 
 
-                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                    carSales.setTimeOfPurchase(LocalTime.parse(record.get("Time of Purchase"), dateFormatter));
-                    carSales.setTimeOfPurchase(LocalTime.parse(record.get("Time of Purchase")));
+                    carSales.setTimeOfPurchaseDate(parsePurchaseDate(record.get("Date of Purchase")));
+                    carSales.setTimeOfPurchase(parsePurchaseTime(record.get("Time of Purchase")));
 
                     carSales.setPrice(Long.parseLong(record.get("Price (Rs)")));
                     carSales.setMileage(Double.parseDouble(record.get("Mileage (km/l)")));
@@ -171,6 +172,14 @@ public class CarSalesServiceImpl implements CarService {
     @Override
     public TotalSalesDto getTotalSales() {
         return carSalesRepository.getTotalSales();
+    }
+
+    static LocalDate parsePurchaseDate(String rawDate) {
+        return LocalDate.parse(rawDate, PURCHASE_DATE_FORMATTER);
+    }
+
+    static LocalTime parsePurchaseTime(String rawTime) {
+        return LocalTime.parse(rawTime);
     }
 
 }
