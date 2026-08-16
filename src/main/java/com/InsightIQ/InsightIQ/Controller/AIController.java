@@ -17,6 +17,9 @@ public class AIController {
 
     @PostMapping("/ask")
     public ResponseEntity<?>  ask (@RequestBody String question){
+        if(question.isBlank()){
+            return ResponseEntity.badRequest().body("Question cannot be empty");
+        }
         return ResponseEntity.ok(aiQueryService.process(question));
     }
 

@@ -44,7 +44,8 @@ public class CarSalesController {
     }
 
     // method create api response  chack
-    public static ApiResponse<UploadSalesResponse> getApiResponse(UploadSalesResponse response) {
+    public static ApiResponse<UploadSalesResponse>
+    getApiResponse(UploadSalesResponse response) {
 
         String message ;
         boolean success;

@@ -28,8 +28,8 @@ public class AIQueryServiceImpl implements AIQueryService {
 
         String sql = generateSQL(question);
 
-        if(sql.equalsIgnoreCase("INVALID")){
-            return "INVALID - Only table related question allowed";
+        if(sql.equalsIgnoreCase("AI_ERROR")){
+        return "AI_ERROR - IS temporarily unavailable";
         }
         if(!isSafe(sql)){
             return "INVALID - Only table related question allowed";
@@ -135,7 +135,25 @@ public class AIQueryServiceImpl implements AIQueryService {
 
             Question:
             """ + question;
+        try {
+            log.debug("Sending request to ai for generation");
 
-        return  chatClient.prompt().user(prompt).call().content().trim();
+            String sql = chatClient
+                    .prompt(prompt)
+                    .call().
+                    content();
+
+            if (sql == null || sql.isBlank()){
+                log.warn("AI  return empty string");
+                return "INVALID";
+            }
+
+            log.debug("Sending request to AI query");
+            return sql.trim();
+
+        } catch (Exception e){
+            log.error("AI Sql generation failed" , e);
+            return "Unable to generate SQL query";
+        }
     }
 }
