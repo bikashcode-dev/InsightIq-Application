@@ -17,9 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @Service
 public class CarSalesServiceImpl implements CarService {
 
+    private static final Logger log = LoggerFactory.getLogger(CarSalesServiceImpl.class);
     static final DateTimeFormatter PURCHASE_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     // for ActiveReports autowiring ->
@@ -72,7 +75,7 @@ public class CarSalesServiceImpl implements CarService {
                     boolean exists = carSalesRepository.existsByCarNumber(carNumber);
                     if (exists) {
                         failCount++;
-                        System.out.println("Car Number " + carNumber + " is already exit");
+                        log.warn("Car number {} already exists", carNumber);
                         continue;
                     }
                     // set details by entity
@@ -105,7 +108,7 @@ public class CarSalesServiceImpl implements CarService {
 
                 } catch (Exception e) {
                     failCount++;
-                    System.out.println("Failed to parse CSV record: " + record.getRecordNumber());
+                    log.error("Failed to process CSV row {}", record.getRecordNumber(), e);
                     throw new RuntimeException(e);
                 }
 
@@ -134,6 +137,7 @@ public class CarSalesServiceImpl implements CarService {
 
         return carSalesRepository.getStateWiseCount();
     }
+
 
     @Override
     public AveragePriceDto getAveragePrice() {
