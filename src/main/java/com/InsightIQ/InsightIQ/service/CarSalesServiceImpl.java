@@ -37,6 +37,14 @@ public class CarSalesServiceImpl implements CarService {
     public UploadSalesResponse uploadCsv(MultipartFile file) {
 
 
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("CSV file cannot be empty");
+        }
+        String fileName = file.getOriginalFilename();
+        if (fileName == null || !fileName.endsWith(".csv")) {
+            throw new IllegalArgumentException("Only CSV files are allowed");
+        }
+
         // add list ROW data
         List<CarSaleEntity> carSaleEntities = new ArrayList<>();
 
