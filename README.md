@@ -59,7 +59,7 @@ Instead of manually digging through thousands (or millions) of rows, a user simp
 
 Businesses sit on years of sales data, but turning that data into decisions usually needs SQL expertise and manual effort. Managers keep asking the same kinds of questions:
 
-| ❓ Common Business Question |
+|  Common Business Question |
 |---|
 | Which product sells the most? |
 | Which products generate the highest profit? |
