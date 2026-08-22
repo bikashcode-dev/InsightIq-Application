@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -18,7 +17,10 @@ public class AIQueryServiceImpl implements AIQueryService {
     private final JdbcTemplate jdbcTemplate;
     private final ChatClient chatClient;
 
-    public AIQueryServiceImpl(JdbcTemplate jdbcTemplate, ChatClient.Builder builder) {
+    public AIQueryServiceImpl(
+            JdbcTemplate jdbcTemplate,
+            ChatClient.Builder builder)
+    {
         this.jdbcTemplate = jdbcTemplate;
         this.chatClient = builder.build();
     }
@@ -116,7 +118,7 @@ public class AIQueryServiceImpl implements AIQueryService {
             You are a MySQL SQL generator.
 
             Table: Product_sales
-
+            
             Columns:
             id, car_brand, car_color, car_model, car_number,
             city, customer_email, customer_name, contact_number,
